@@ -1,10 +1,7 @@
-
-import urllib.request
-import joblib, json, logging, os, pickle, ssl
+import joblib, json, logging, os, pickle
 import numpy as np
 import pandas as pd
 import azureml.automl.core
-from azureml.core.model import Model
 from azureml.automl.core.shared import logging_utilities, log_server
 from azureml.telemetry import INSTRUMENTATION_KEY
 from inference_schema.schema_decorators import input_schema, output_schema
