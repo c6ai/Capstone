@@ -85,12 +85,11 @@ Noting that below headers 1st row was intentionally dropped pre-training:
 
 
 ### Results
-*TODO*: 
 
-* Best HyperDrive run's best model had scored a %99.98 Accuracy, with confusion_matrix of [[28857, 0], [0, 4]], almost full mark on recall and precsion [considering the log_loss of 1.0978e-4].
+* Best HyperDrive run's best model had scored a %99.98 Accuracy, with confusion_matrix of [[28857, 0], [0, 4]], an almost full mark on recall and precsion [considering the log_loss of 1.0978e-4], alas only on the training [non test-validated] data.
 
 
-* parameters of the model:
+* parameters of the hyper-tuned model:
 
   - The `(best_run.get_details()['runDefinition']['arguments'])` were as follows:
   
@@ -100,20 +99,21 @@ Noting that below headers 1st row was intentionally dropped pre-training:
 * Such model could be improved via changing the `primary_metric_name='Accuracy'` into an averaged metric along with an overall F1 score [given its current status of imbalanced data] and considering the use of SGDClassifier with ‘log’ loss [faster than a “saga” solver with L1/elasticnet penalty].
 
 
-*TODO* Screenshot of the [Hyperparameter Tuning] `RunDetails` widget:
+  - Screenshot of the [Hyperparameter Tuning] `RunDetails` widget:
 
-...
+![HT-RunDetails-widget](images/HT-RunDetails-widget.png?raw=true)
 
 
-*TODO* Screenshot of the best [Hyperparameter Tuning] model trained with it's parameters:
 
-...
+  - Screenshot of the best [Hyperparameter Tuning] model trained with it's parameters:
+
+![HT-trained-model-with-parameters](images/HT-trained-model-with-parameters.png?raw=true)
 
 
 
 ## Automated ML
 
-* 1st, below step were processed:
+* 1st, below steps were processed:
 
   - Generated features for the dataset.DatasetFeaturization.
   - Completed Dataset Featurization [fitting featurizers and featurizing the dataset].
@@ -151,7 +151,7 @@ Noting that below headers 1st row was intentionally dropped pre-training:
 
 ### Results
 
-* Unfortunately [out of 57681 'benign' packets] one adversarial packet (once in a while) manages to infiltrate such IDS firewall's novel MLSecOps model, as in the below confusion matrix (with a Log Loss = 1.3600e-4):
+* Auto ML achieved full precision and recall marks [with zero false negatives] on the training data; on the other hand unfortunately, [out of 57681 'benign' packets] one adversarial packet (once in a while) manages to infiltrate such IDS firewall's novel MLSecOps model on the test validation, as in the below confusion matrix (with a Log Loss = 1.3600e-4):
 
 ![automl-cm](images/automl-cm.png?raw=true)
 
@@ -256,12 +256,12 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
 * Both best AutoML [SparseNormalizer & LightGBM / XGBoostClassifier] algorithms have scored a 100% Accuracy; notwithstanding that, such imbalanced data can lead to a falsely perceived positive effect of a model's accuracy; thus, planning to use SMOTENN featurization to double check the F1 score [given that inputs were analyzed, and no high cardinality features were detected; and despite using a validation dataset to improve model performance and avoid an overfit].
 
 
-*TODO* Screenshot of the [Auto ML] `RunDetails` widget:
+  - Screenshot of the [Auto ML] `RunDetails` widget:
 
 ![automl-RunDetails-widget](images/automl-RunDetails-widget.png?raw=true)
 
 
-*TODO* Screenshot of the best [Auto ML]  model trained with it's parameters:
+  - Screenshot of the best [Auto ML]  model trained with it's parameters:
 
 ![automl-trained-model-with-parameters](images/automl-trained-model-with-parameters.png?raw=true)
 
