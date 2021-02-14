@@ -307,8 +307,14 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
     - Which returned back the anticipated foresights accurately as follows:
     
     `'{"predictions": [0, 1]}'`
+ 
+ 
+  !automl-model-endpoint-is-healthy--notebook](images/automl-model-endpoint-is-healthy--notebook.png?raw=true)
   
   
+  * Screenshot showing the model endpoint as active/healthy:
+  
+ ![automl-model-endpoint-is-healthy--studio](images/automl-model-endpoint-is-healthy--studio.png?raw=true)
   
 
 ## Screen Recording
