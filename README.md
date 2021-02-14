@@ -110,12 +110,15 @@ Noting that below headers 1st row was intentionally dropped pre-training:
 ...
 
 
+
 ## Automated ML
 
 * 1st, below step were processed:
+
   - Generated features for the dataset.DatasetFeaturization.
   - Completed Dataset Featurization [fitting featurizers and featurizing the dataset].
   - Performed class balancing sweeping (DatasetBalancing).
+
 
 * Then, excuted  the experiment used `automl` settings, as in the below high level overview:
 
@@ -125,6 +128,7 @@ Noting that below headers 1st row was intentionally dropped pre-training:
     'model_explainability': True,
     "primary_metric": 'accuracy' # 'normalized_root_mean_squared_error' # 'precision_score_weighted, accuracy, AUC_weighted, norm_macro_recall, average_precision_score
 }`
+
 
 * and while more on the [ `automl` configuration](https://aka.ms/AutoMLConfig) is documented @ aka.ms/AutoMLConfig; below is a high level overview of the experiment used `automl` configuration:
 
@@ -139,11 +143,17 @@ Noting that below headers 1st row was intentionally dropped pre-training:
                              debug_log = "automl_errors.log",
                              **automl_settings
                             )`
+                            
   - Thus, the final json string was as follows:
+  
   `AMLSettingsJsonString': '{"path":null,"name":"ml-experiment-025","subscription_id":"5cf0bb76-4731-4cb5-ac3d-950c07dda6ef","resource_group":"group1st","workspace_name":"workspace1st","region":"uksouth","compute_target":"cpu-cluster","spark_service":null,"azure_service":"remote","many_models":false,"pipeline_fetch_max_batch_size":1,"iterations":1000,"primary_metric":"accuracy","task_type":"classification","data_script":null,"validation_size":0.0,"n_cross_validations":null,"y_min":null,"y_max":null,"num_classes":null,"featurization":"auto","_ignore_package_version_incompatibilities":false,"is_timeseries":false,"max_cores_per_iteration":1,"max_concurrent_iterations":5,"iteration_timeout_minutes":null,"mem_in_mb":null,"enforce_time_on_windows":false,"experiment_timeout_minutes":25,"experiment_exit_score":null,"whitelist_models":null,"blacklist_algos":["TensorFlowLinearClassifier","TensorFlowDNN"],"supported_models":["LightGBM","LinearSVM","TensorFlowDNN","SVM","GradientBoosting","ExtremeRandomTrees","TensorFlowLinearClassifier","KNN","SGD","BernoulliNaiveBayes","XGBoostClassifier","MultinomialNaiveBayes","LogisticRegression","RandomForest","AveragedPerceptronClassifier","DecisionTree"],"private_models":[],"auto_blacklist":true,"blacklist_samples_reached":false,"exclude_nan_labels":true,"verbosity":20,"_debug_log":"azureml_automl.log","show_warnings":false,"model_explainability":true,"service_url":null,"sdk_url":null,"sdk_packages":null,"enable_onnx_compatible_models":false,"enable_split_onnx_featurizer_estimator_models":false,"vm_type":"STANDARD_DS12_V2","telemetry_verbosity":20,"send_telemetry":true,"enable_dnn":false,"scenario":"SDK-1.13.0","environment_label":null,"force_text_dnn":false,"enable_feature_sweeping":true,"enable_early_stopping":true,"early_stopping_n_iters":10,"metrics":null,"enable_ensembling":true,"enable_stack_ensembling":true,"ensemble_iterations":15,"enable_tf":false,"enable_subsampling":null,"subsample_seed":null,"enable_nimbusml":false,"enable_streaming":false,"force_streaming":false,"track_child_runs":true,"allowed_private_models":[],"label_column_name":"Column39","weight_column_name":null,"cv_split_column_names":null,"enable_local_managed":false,"_local_managed_run_id":null,"cost_mode":1,"lag_length":0,"metric_operation":"maximize","preprocess":true}`
 
 
 ### Results
+
+* Unfortunately [out of 57681 'benign' packets] one adversarial packet has managed to infiltrate the IDS firewall, as in the belwo confusion matrix:
+![automl-cm](images/automl-cm.png?raw=true)
+
 
 * The metrics associated with the the Auto ML model were:
 
@@ -188,6 +198,7 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
                    subsample_for_bin=200000, subsample_freq=0, verbose=-10))`
 
   - Thus, the best fitted model pipeline is as follows:
+  
   `Pipeline(memory=None,
          steps=[('datatransformer',
                  DataTransformer(enable_dnn=None, enable_feature_sweeping=None,
@@ -211,10 +222,6 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
                                    verbosity=0))],
          verbose=False)`
 
-
-* (automl_module) Execution Summary - Status: Finished
-  - {'runId': '9909b382-6edb-47ac-9e56-903857b76c4b', 'target': 'cpu-cluster', 'status': 'Completed', 'startTimeUtc': '2021-02-13T22:35:33.441667Z', 'endTimeUtc': '2021-02-13T23:05:20.260051Z', 'properties': {'ContentSnapshotId': 'cbf19f1d-d374-4ee6-9ae4-26639f832898', 'StepType': 'AutoMLStep', 'azureml.moduleid': '4c88d91c-0bd5-4a6a-9523-31fc2674c730', 'azureml.runsource': 'azureml.StepRun', 'azureml.nodeid': '19e028cf', 'azureml.pipelinerunid': '0966b295-48fb-48d7-aeae-01d7e7b94bca', 'num_iterations': '1000', 'training_type': 'TrainFull', 'acquisition_function': 'EI', 'metrics': 'accuracy', 'primary_metric': 'accuracy', 'train_split': '0', 'MaxTimeSeconds': None, 'acquisition_parameter': '0', 'num_cross_validation': None, 'target': 'cpu-cluster', 'RawAMLSettingsString': None, 'AMLSettingsJsonString': '{"path": null, "name": "placeholder", "subscription_id": "5cf0bb76-4731-4cb5-ac3d-950c07dda6ef", "resource_group": "group1st", "workspace_name": "workspace1st", "region": "uksouth", "compute_target": "cpu-cluster", "spark_service": null, "azure_service": null, "many_models": false, "pipeline_fetch_max_batch_size": 1, "iterations": 1000, "primary_metric": "accuracy", "task_type": "classification", "data_script": null, "validation_size": 0.0, "n_cross_validations": null, "y_min": null, "y_max": null, "num_classes": null, "featurization": "auto", "_ignore_package_version_incompatibilities": false, "is_timeseries": false, "max_cores_per_iteration": 1, "max_concurrent_iterations": 5, "iteration_timeout_minutes": null, "mem_in_mb": null, "enforce_time_on_windows": false, "experiment_timeout_minutes": 25, "experiment_exit_score": null, "whitelist_models": null, "blacklist_algos": null, "supported_models": ["MultinomialNaiveBayes", "SGD", "XGBoostClassifier", "SVM", "KNN", "BernoulliNaiveBayes", "RandomForest", "GradientBoosting", "TensorFlowLinearClassifier", "DecisionTree", "AveragedPerceptronClassifier", "LinearSVM", "TensorFlowDNN", "ExtremeRandomTrees", "LogisticRegression", "LightGBM"], "auto_blacklist": true, "blacklist_samples_reached": false, "exclude_nan_labels": true, "verbosity": 20, "_debug_log": "automl_errors.log", "show_warnings": false, "model_explainability": true, "service_url": null, "sdk_url": null, "sdk_packages": null, "enable_onnx_compatible_models": false, "enable_split_onnx_featurizer_estimator_models": false, "vm_type": "STANDARD_DS12_V2", "telemetry_verbosity": 20, "send_telemetry": true, "enable_dnn": false, "scenario": "SDK-1.13.0", "environment_label": null, "force_text_dnn": false, "enable_feature_sweeping": true, "enable_early_stopping": true, "early_stopping_n_iters": 10, "metrics": null, "enable_ensembling": true, "enable_stack_ensembling": true, "ensemble_iterations": 15, "enable_tf": false, "enable_subsampling": null, "subsample_seed": null, "enable_nimbusml": false, "enable_streaming": false, "force_streaming": false, "track_child_runs": true, "allowed_private_models": [], "label_column_name": "Column39", "weight_column_name": null, "cv_split_column_names": null, "enable_local_managed": false, "_local_managed_run_id": null, "cost_mode": 1, "lag_length": 0, "metric_operation": "maximize", "preprocess": true}', 'DataPrepJsonString': '{\\"training_data\\": {\\"datasetId\\": \\"b659a5c4-9f17-4dc3-a9c9-b7f62d305435\\"}, \\"datasets\\": 0}', 'EnableSubsampling': 'False', 'runTemplate': 'AutoML', 'Orchestrator': 'automl', 'ClientType': 'Others', '_aml_system_scenario_identification': 'Remote.Parent', 'root_attribution': 'azureml.StepRun', 'snapshotId': 'cbf19f1d-d374-4ee6-9ae4-26639f832898', 'SetupRunId': '9909b382-6edb-47ac-9e56-903857b76c4b_setup', 'SetupRunContainerId': 'dcid.9909b382-6edb-47ac-9e56-903857b76c4b_setup', 'ClientSdkVersion': '1.20.0', 'FeaturizationRunJsonPath': 'featurizer_container.json', 'FeaturizationRunId': '9909b382-6edb-47ac-9e56-903857b76c4b_featurize', 'ProblemInfoJsonString': '{"dataset_num_categorical": 0, "is_sparse": true, "subsampling": false, "dataset_classes": 2, "dataset_features": 51, "dataset_samples": 259741, "single_frequency_class_detected": false}', 'ModelExplainRunId': '9909b382-6edb-47ac-9e56-903857b76c4b_ModelExplain'}, 'inputDatasets': [], 'outputDatasets': [], 'submittedBy': 'A Admin'}
-=========================================
 
 * Best AutoML [SparseNormalizer & LightGBM] algorithm had scored a 100% Accuracy; notwithstanding that, such imbalanced data can lead to a falsely perceived positive effect of a model's accuracy; thus, planning to use SMOTEENN featurization to double check the F1 score [given that inputs were analyzed, and no high cardinality features were detected; and despite using a validation dataset to improve model performance and avoid an overfit].
 
