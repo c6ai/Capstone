@@ -151,12 +151,12 @@ Noting that below headers 1st row was intentionally dropped pre-training:
 
 ### Results
 
-* Unfortunately [out of 57681 'benign' packets] one adversarial packet has managed to infiltrate the IDS firewall, as in the below confusion matrix:
+* Unfortunately [out of 57681 'benign' packets] one adversarial packet (once in a while) manages to infiltrate such IDS firewall's novel MLSecOps model, as in the below confusion matrix (with a Log Loss = 1.3600e-4):
 
 ![automl-cm](images/automl-cm.png?raw=true)
 
 
-* The metrics associated with the the Auto ML model were:
+* The overall metrics associated with the the Auto ML model were:
 
 precision_score_weighted	[0.9997228285361334]
 recall_score_micro	[0.9998614046637331]
@@ -182,7 +182,7 @@ f1_score_macro	[0.49996534876468346]
 
 `ITERATION   PIPELINE                                DURATION      METRIC      BEST`
 
-`12   SparseNormalizer LightGBM                      0:01:18       1.0000    1.0000`
+`30   SparseNormalizer XGBoostClassifier             0:01:30       1.0000    1.0000`
 
 Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary description of the pipeline being evaluated, DURATION: is the time taken for the current iteration, METRIC: is the result of computing score on the fitted pipeline.
 
