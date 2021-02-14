@@ -151,7 +151,8 @@ Noting that below headers 1st row was intentionally dropped pre-training:
 
 ### Results
 
-* Unfortunately [out of 57681 'benign' packets] one adversarial packet has managed to infiltrate the IDS firewall, as in the belwo confusion matrix:
+* Unfortunately [out of 57681 'benign' packets] one adversarial packet has managed to infiltrate the IDS firewall, as in the below confusion matrix:
+
 ![automl-cm](images/automl-cm.png?raw=true)
 
 
