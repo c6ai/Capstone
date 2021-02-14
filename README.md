@@ -156,8 +156,6 @@ Noting that below headers 1st row was intentionally dropped pre-training:
 ![automl-cm](images/automl-cm.png?raw=true)
 
 
-* The overall metrics associated with the the Auto ML model were:
-
 precision_score_weighted	[0.9997228285361334]
 recall_score_micro	[0.9998614046637331]
 balanced_accuracy	[0.5]
@@ -178,6 +176,34 @@ weighted_accuracy	[0.9999999807860075]
 f1_score_weighted	[0.9997921117980992]
 average_precision_score_micro	[0.9999999135797512]
 f1_score_macro	[0.49996534876468346]
+
+
+* However, final metrics associated with the deployed Auto ML model were:
+
+f1_score_macro 1.0
+recall_score_micro 1.0
+matthews_correlation 1.0
+recall_score_macro 1.0
+AUC_macro 1.0
+AUC_micro 1.0
+weighted_accuracy 1.0
+average_precision_score_micro 1.0
+log_loss 9.3142013956508e-05
+recall_score_weighted 1.0
+precision_score_macro 1.0
+precision_score_weighted 1.0
+norm_macro_recall 1.0
+f1_score_weighted 1.0
+average_precision_score_macro 1.0
+balanced_accuracy 1.0
+AUC_weighted 1.0
+f1_score_micro 1.0
+accuracy 1.0
+average_precision_score_weighted 1.0
+precision_score_micro 1.0
+confusion_matrix aml://artifactId/ExperimentRun/dcid.AutoML_532e1f2e-40f2-44cf-845f-4ff45db1a7c8_6/confusion_matrix
+accuracy_table aml://artifactId/ExperimentRun/dcid.AutoML_532e1f2e-40f2-44cf-845f-4ff45db1a7c8_6/accuracy_table
+
 
 
 `ITERATION   PIPELINE                                DURATION      METRIC      BEST`
