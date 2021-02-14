@@ -55,6 +55,61 @@ Noting that below headers 1st row was intentionally dropped pre-training:
 
 `[' Destination Port', ' Flow Duration', ' Total Fwd Packets', ' Total Backward Packets', 'Total Length of Fwd Packets', ' Total Length of Bwd Packets', ' Fwd Packet Length Max', ' Fwd Packet Length Min', ' Fwd Packet Length Mean', ' Fwd Packet Length Std', 'Bwd Packet Length Max', ' Bwd Packet Length Min', ' Bwd Packet Length Mean', ' Bwd Packet Length Std', 'Flow Bytes/s', ' Flow Packets/s', ' Flow IAT Mean', ' Flow IAT Std', ' Flow IAT Max', ' Flow IAT Min', 'Fwd IAT Total', ' Fwd IAT Mean', ' Fwd IAT Std', ' Fwd IAT Max', ' Fwd IAT Min', 'Bwd IAT Total', ' Bwd IAT Mean', ' Bwd IAT Std', ' Bwd IAT Max', ' Bwd IAT Min', 'Fwd PSH Flags', ' Bwd PSH Flags', ' Fwd URG Flags', ' Bwd URG Flags', ' Fwd Header Length', ' Bwd Header Length', 'Fwd Packets/s', ' Bwd Packets/s', ' Min Packet Length', ' Max Packet Length', ' Packet Length Mean', ' Packet Length Std', ' Packet Length Variance', 'FIN Flag Count', ' SYN Flag Count', ' RST Flag Count', ' PSH Flag Count', ' ACK Flag Count', ' URG Flag Count', ' CWE Flag Count', ' ECE Flag Count', ' Down/Up Ratio', ' Average Packet Size', ' Avg Fwd Segment Size', ' Avg Bwd Segment Size', ' Fwd Header Length.1', 'Fwd Avg Bytes/Bulk', ' Fwd Avg Packets/Bulk', ' Fwd Avg Bulk Rate', ' Bwd Avg Bytes/Bulk', ' Bwd Avg Packets/Bulk', 'Bwd Avg Bulk Rate', 'Subflow Fwd Packets', ' Subflow Fwd Bytes', ' Subflow Bwd Packets', ' Subflow Bwd Bytes', 'Init_Win_bytes_forward', ' Init_Win_bytes_backward', ' act_data_pkt_fwd', ' min_seg_size_forward', 'Active Mean', ' Active Std', ' Active Max', ' Active Min', 'Idle Mean', ' Idle Std', ' Idle Max', ' Idle Min', ' Label']`
 
+
+
+## Hyperparameter Tuning
+  
+* Kind of model chosen for the Hyperparameter Tuning experiment:
+  
+  - Logistic regression was the algorithm chosen as a linear model for such classification [rather than regression, despite its name]; due to its robustness and the fact that the critical requirement of regularization is applied by default via lowering the C parameter to an optimal 1.
+
+
+* Below is a high level overview of the types of parameters and their ranges used for the hyperparameter search:
+
+  - The early_termination_policy was a BanditPolicy with these parameters:
+  
+  `(evaluation_interval = 2, slack_factor = 0.1, delay_evaluation=0)`
+
+  - The param_sampling was a RandomParameterSampling with two parameters:
+  
+  `({"--C": uniform(0.2, 0.9), "--max_iter": choice(10,15,20)})`
+
+  - The estimator was the "deprecated" SKLearn with these parameters:
+  
+  `(source_directory= script_folder, compute_target=compute_target, entry_script="train.py")`
+
+  - The HyperDriveConfig [that used the estimator, hyperparameter sampler, and policy] was as follows:
+  
+  `(estimator=est, hyperparameter_sampling=ps, policy=policy, primary_metric_name='accuracy', primary_metric_goal=PrimaryMetricGoal.MAXIMIZE, max_total_runs=10, max_concurrent_runs=2)`
+
+
+
+### Results
+*TODO*: 
+
+* Best HyperDrive run's best model had scored a %99.98 Accuracy, with confusion_matrix of [[28857, 0], [0, 4]], almost full mark on recall and precsion [considering the log_loss of 1.0978e-4].
+
+
+* parameters of the model:
+
+  - The `(best_run.get_details()['runDefinition']['arguments'])` were as follows:
+  
+  `['--C', '0.674092700168093', '--max_iter', '15']`
+
+
+* Such model could be improved via changing the `primary_metric_name='Accuracy'` into an averaged metric along with an overall F1 score [given its current status of imbalanced data] and considering the use of SGDClassifier with ‘log’ loss [faster than a “saga” solver with L1/elasticnet penalty].
+
+
+*TODO* Screenshot of the [Hyperparameter Tuning] `RunDetails` widget:
+
+...
+
+
+*TODO* Screenshot of the best [Hyperparameter Tuning] model trained with it's parameters:
+
+...
+
+
 ## Automated ML
 
 * 1st, below step were processed:
@@ -147,59 +202,6 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
 ...
 
 
-## Hyperparameter Tuning
-  
-* Kind of model chosen for the Hyperparameter Tuning experiment:
-  
-  - Logistic regression was the algorithm chosen as a linear model for such classification [rather than regression, despite its name]; due to its robustness and the fact that the critical requirement of regularization is applied by default via lowering the C parameter to an optimal 1.
-
-
-* Below is a high level overview of the types of parameters and their ranges used for the hyperparameter search:
-
-  - The early_termination_policy was a BanditPolicy with these parameters:
-  
-  `(evaluation_interval = 2, slack_factor = 0.1, delay_evaluation=0)`
-
-  - The param_sampling was a RandomParameterSampling with two parameters:
-  
-  `({"--C": uniform(0.2, 0.9), "--max_iter": choice(10,15,20)})`
-
-  - The estimator was the "deprecated" SKLearn with these parameters:
-  
-  `(source_directory= script_folder, compute_target=compute_target, entry_script="train.py")`
-
-  - The HyperDriveConfig [that used the estimator, hyperparameter sampler, and policy] was as follows:
-  
-  `(estimator=est, hyperparameter_sampling=ps, policy=policy, primary_metric_name='accuracy', primary_metric_goal=PrimaryMetricGoal.MAXIMIZE, max_total_runs=10, max_concurrent_runs=2)`
-
-
-
-### Results
-*TODO*: 
-
-* Best HyperDrive run's best model had scored a %99.98 Accuracy, with confusion_matrix of [[28857, 0], [0, 4]], almost full mark on recall and precsion [considering the log_loss of 1.0978e-4].
-
-
-* parameters of the model:
-
-  - The `(best_run.get_details()['runDefinition']['arguments'])` were as follows:
-  
-  `['--C', '0.674092700168093', '--max_iter', '15']`
-
-
-* Such model could be improved via changing the `primary_metric_name='Accuracy'` into an averaged metric along with an overall F1 score [given its current status of imbalanced data] and considering the use of SGDClassifier with ‘log’ loss [faster than a “saga” solver with L1/elasticnet penalty].
-
-
-*TODO* Screenshot of the [Hyperparameter Tuning] `RunDetails` widget:
-
-...
-
-
-*TODO* Screenshot of the best [Hyperparameter Tuning] model trained with it's parameters:
-
-...
-
-
 ## Model Deployment
 
 * Below is a high level overview of the deployed fitted model:
@@ -214,13 +216,35 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
                    subsample_for_bin=200000, subsample_freq=0, verbose=-10))`
 
 
-*TODO*: ### Instructions on how to query the endpoint with a sample input:
+* Instructions on how to query the endpoint with a sample input:
   
   `http://c76e1449-ef84-4a53-9904-61ce2f8aa744.uksouth.azurecontainer.io/swagger.json`
   
   `http://c76e1449-ef84-4a53-9904-61ce2f8aa744.uksouth.azurecontainer.io/score`
  
-  - Above [endpoint 'score` and `swagger.json`] APIs are up and running.
+  - Above [endpoint 'score` and `swagger.json`] APIs are up and running; nontheless, the below code was used to live-test the RESTful API within the notebook:
+  
+  `test_samples = X_test_df[26840:26842].to_json(orient='records')`
+  
+  `result = service.run(input_data = test_samples)`
+  
+  `residual = result - y_test_df`
+  
+  `url = aci_service.scoring_uri`
+  
+  `api_key = ''`
+  
+  `headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}`
+  
+  `resp = requests.post(aci_service.scoring_uri, test_samples, headers = headers)`
+  
+  `resp.text`
+  
+    - Which returned back the anticipated foresights accurately as follows:
+    
+    `'{"predictions": [0, 1]}'`
+  
+  
   
 
 ## Screen Recording
