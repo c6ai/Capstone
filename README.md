@@ -182,12 +182,15 @@ f1_score_macro	[0.49996534876468346]
 
 `ITERATION   PIPELINE                                DURATION      METRIC      BEST`
 
-`30   SparseNormalizer XGBoostClassifier             0:01:30       1.0000    1.0000`
+`12   SparseNormalizer LightGBM                      0:01:18       1.0000    1.0000`
+
+`35   SparseNormalizer XGBoostClassifier             0:01:30       1.0000    1.0000`
+
 
 Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary description of the pipeline being evaluated, DURATION: is the time taken for the current iteration, METRIC: is the result of computing score on the fitted pipeline.
 
 
-* The parameters of the model:
+* The parameters of the 'faster' model:
 
 `('LightGBMClassifier', LightGBMClassifier(boosting_type='goss', class_weight=None,
                    colsample_bytree=0.6933333333333332, importance_type='split',
@@ -224,17 +227,17 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
          verbose=False)`
 
 
-* Best AutoML [SparseNormalizer & LightGBM] algorithm had scored a 100% Accuracy; notwithstanding that, such imbalanced data can lead to a falsely perceived positive effect of a model's accuracy; thus, planning to use SMOTEENN featurization to double check the F1 score [given that inputs were analyzed, and no high cardinality features were detected; and despite using a validation dataset to improve model performance and avoid an overfit].
+* Both best AutoML [SparseNormalizer & LightGBM / XGBoostClassifier] algorithms have scored a 100% Accuracy; notwithstanding that, such imbalanced data can lead to a falsely perceived positive effect of a model's accuracy; thus, planning to use SMOTENN featurization to double check the F1 score [given that inputs were analyzed, and no high cardinality features were detected; and despite using a validation dataset to improve model performance and avoid an overfit].
 
 
 *TODO* Screenshot of the [Auto ML] `RunDetails` widget:
 
-...
+![automl-RunDetails-widget](images/automl-RunDetails-widget.png?raw=true)
 
 
 *TODO* Screenshot of the best [Auto ML]  model trained with it's parameters:
 
-...
+![automl-trained-model-with-parameters](images/automl-trained-model-with-parameters.png?raw=true)
 
 
 ## Model Deployment
