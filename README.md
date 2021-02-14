@@ -309,7 +309,7 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
     `'{"predictions": [0, 1]}'`
  
  
-  !automl-model-endpoint-is-healthy--notebook](images/automl-model-endpoint-is-healthy--notebook.png?raw=true)
+ ![automl-model-endpoint-is-healthy--notebook](images/automl-model-endpoint-is-healthy--notebook.png?raw=true)
   
   
   * Screenshot showing the model endpoint as active/healthy:
@@ -324,8 +324,7 @@ Below recording's link was the demo of showcasing the project in action, demonst
 * Screencast Recording Documentation Demo in < 5 mins:
 
 **https://vimeo.com/510089644**
-
-  /b87c5d0480
+/b87c5d0480
 
 
 ## [OPTIONAL] Standout Suggestions
