@@ -99,13 +99,13 @@ Noting that below headers 1st row was intentionally dropped pre-training:
 * Such model could be improved via changing the `primary_metric_name='Accuracy'` into an averaged metric along with an overall F1 score [given its current status of imbalanced data] and considering the use of SGDClassifier with ‘log’ loss [faster than a “saga” solver with L1/elasticnet penalty].
 
 
-    - Screenshot of the [Hyperparameter Tuning] `RunDetails` widget:
+  * Screenshot of the [Hyperparameter Tuning] `RunDetails` widget:
 
 ![HT-RunDetails-widget](images/HT-RunDetails-widget.png?raw=true)
 
 
 
-    - Screenshot of the best [Hyperparameter Tuning] model trained with it's parameters:
+  * Screenshot of the best [Hyperparameter Tuning] model trained with it's parameters:
 
 ![HT-trained-model-with-parameters](images/HT-trained-model-with-parameters.png?raw=true)
 
@@ -256,12 +256,12 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
 * Both best AutoML [SparseNormalizer & LightGBM / XGBoostClassifier] algorithms have scored a 100% Accuracy; notwithstanding that, such imbalanced data can lead to a falsely perceived positive effect of a model's accuracy; thus, planning to use SMOTENN featurization to double check the F1 score [given that inputs were analyzed, and no high cardinality features were detected; and despite using a validation dataset to improve model performance and avoid an overfit].
 
 
-    - Screenshot of the [Auto ML] `RunDetails` widget:
+  * Screenshot of the [Auto ML] `RunDetails` widget:
 
 ![automl-RunDetails-widget](images/automl-RunDetails-widget.png?raw=true)
 
 
-    - Screenshot of the best [Auto ML]  model trained with it's parameters:
+  * Screenshot of the best [Auto ML]  model trained with it's parameters:
 
 ![automl-trained-model-with-parameters](images/automl-trained-model-with-parameters.png?raw=true)
 
