@@ -135,9 +135,12 @@ Noting that below headers 1st row was intentionally dropped pre-training:
                              path = project_folder,
                              enable_early_stopping = True,
                              # featurization= 'auto', # Default
+                             # enable_onnx_compatible_models=True,
                              debug_log = "automl_errors.log",
                              **automl_settings
                             )`
+  - Thus, the final json string was as follows:
+  `AMLSettingsJsonString': '{"path":null,"name":"ml-experiment-025","subscription_id":"5cf0bb76-4731-4cb5-ac3d-950c07dda6ef","resource_group":"group1st","workspace_name":"workspace1st","region":"uksouth","compute_target":"cpu-cluster","spark_service":null,"azure_service":"remote","many_models":false,"pipeline_fetch_max_batch_size":1,"iterations":1000,"primary_metric":"accuracy","task_type":"classification","data_script":null,"validation_size":0.0,"n_cross_validations":null,"y_min":null,"y_max":null,"num_classes":null,"featurization":"auto","_ignore_package_version_incompatibilities":false,"is_timeseries":false,"max_cores_per_iteration":1,"max_concurrent_iterations":5,"iteration_timeout_minutes":null,"mem_in_mb":null,"enforce_time_on_windows":false,"experiment_timeout_minutes":25,"experiment_exit_score":null,"whitelist_models":null,"blacklist_algos":["TensorFlowLinearClassifier","TensorFlowDNN"],"supported_models":["LightGBM","LinearSVM","TensorFlowDNN","SVM","GradientBoosting","ExtremeRandomTrees","TensorFlowLinearClassifier","KNN","SGD","BernoulliNaiveBayes","XGBoostClassifier","MultinomialNaiveBayes","LogisticRegression","RandomForest","AveragedPerceptronClassifier","DecisionTree"],"private_models":[],"auto_blacklist":true,"blacklist_samples_reached":false,"exclude_nan_labels":true,"verbosity":20,"_debug_log":"azureml_automl.log","show_warnings":false,"model_explainability":true,"service_url":null,"sdk_url":null,"sdk_packages":null,"enable_onnx_compatible_models":false,"enable_split_onnx_featurizer_estimator_models":false,"vm_type":"STANDARD_DS12_V2","telemetry_verbosity":20,"send_telemetry":true,"enable_dnn":false,"scenario":"SDK-1.13.0","environment_label":null,"force_text_dnn":false,"enable_feature_sweeping":true,"enable_early_stopping":true,"early_stopping_n_iters":10,"metrics":null,"enable_ensembling":true,"enable_stack_ensembling":true,"ensemble_iterations":15,"enable_tf":false,"enable_subsampling":null,"subsample_seed":null,"enable_nimbusml":false,"enable_streaming":false,"force_streaming":false,"track_child_runs":true,"allowed_private_models":[],"label_column_name":"Column39","weight_column_name":null,"cv_split_column_names":null,"enable_local_managed":false,"_local_managed_run_id":null,"cost_mode":1,"lag_length":0,"metric_operation":"maximize","preprocess":true}`
 
 
 ### Results
@@ -183,6 +186,30 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
                    num_leaves=32, objective=None, reg_alpha=0.9473684210526315,
                    reg_lambda=0.6842105263157894, silent=True, subsample=1,
                    subsample_for_bin=200000, subsample_freq=0, verbose=-10))`
+
+  - Thus, the best fitted model pipeline is as follows:
+  `Pipeline(memory=None,
+         steps=[('datatransformer',
+                 DataTransformer(enable_dnn=None, enable_feature_sweeping=None,
+                                 feature_sweeping_config=None,
+                                 feature_sweeping_timeout=None,
+                                 featurization_config=None, force_text_dnn=None,
+                                 is_cross_validation=None,
+                                 is_onnx_compatible=None, logger=None,
+                                 observer=None, task=None, working_dir=None)),
+                ('SparseNormalizer',
+                 <azureml.auto...
+                                   colsample_bytree=0.5, eta=0.1, gamma=0,
+                                   learning_rate=0.1, max_delta_step=0,
+                                   max_depth=6, max_leaves=15,
+                                   min_child_weight=1, missing=nan,
+                                   n_estimators=100, n_jobs=1, nthread=None,
+                                   objective='reg:logistic', random_state=0,
+                                   reg_alpha=0, reg_lambda=2.0833333333333335,
+                                   scale_pos_weight=1, seed=None, silent=None,
+                                   subsample=1, tree_method='auto', verbose=-10,
+                                   verbosity=0))],
+         verbose=False)`
 
 
 * (automl_module) Execution Summary - Status: Finished
