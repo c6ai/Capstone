@@ -330,9 +330,9 @@ Below are the screeshots for the AutoML [Fitted and Later Deployed] Best Model's
 
 Below recording's link was the demo of showcasing the project in action, demonstrating the key steps; in addition to the required screenshots to demonstrate [along with the above screencasts] the completed project [overall end-to-end workflow's] critical stages' criteria that meet specifications of its various main steps [a working model; a demo of the deployed model, and a demo of a sample request sent to the endpoint and its response]:
 
-* Screencast Recording Documentation Demo in approx. 5 mins:
+* Screencast Recording Documentation Demo in less than 5 minutes:
 
-**https://vimeo.com/512300202/72ba9e3b07**
+**https://vimeo.com/512406014/26be4aa61b**
 
 
 
