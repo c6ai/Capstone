@@ -15,7 +15,7 @@ Rather than its score-matching [yet slower] VotingEnsemble, the best performing 
 
 ## Project Set Up and Installation
 
-*OPTIONAL:* no special installation steps required to set up this project in AzureML.
+*OPTIONAL:* no special installation steps were required to set up this project in AzureML.
 
 
 ## Dataset
@@ -264,6 +264,15 @@ Noting that: ITERATION is the iteration being evaluated, PIPELINE: is a summary 
   * Screenshot of the best [Auto ML]  model trained with it's parameters:
 
 ![automl-trained-model-with-parameters](images/automl-trained-model-with-parameters.png?raw=true)
+
+
+### Extra Required Screenshots:
+
+Below are the screeshots for the AutoML [Fitted and Later Deployed] Best Model's Run ID:
+
+![AutoML[Fitted-Best-Model]Run-ID-Screenshot-in-Notebook](images/AutoML[Deployed-Best-Model]Run-ID-Screenshot-in-Notebook.png?raw=true)
+
+![AutoML[Fitted-Best-Model]Run-ID-Screenshot-in-Studio](images/AutoML[Deployed-Best-Model]Run-ID-Screenshot-in-Studio.png?raw=true)
 
 
 ## Model Deployment
